@@ -17,11 +17,8 @@ import java.util.Map;
 public class ChatController {
     public final ChatService chatService;
 
-    @GetMapping("/health")
-    public Mono<String> health() {
-        return chatService.getHealth();
 
-    }
+
 
 
 //    @PostMapping("/chat")
