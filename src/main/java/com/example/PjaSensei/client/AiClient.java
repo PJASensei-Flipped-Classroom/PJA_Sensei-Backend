@@ -12,7 +12,7 @@ public class AiClient {
 
     public Mono<String> getHealth() {
         return webClient.get()
-                .uri("/health")    //TODO: Change to ai properties-when created
+                .uri("/health")
                 .retrieve()
                 .bodyToMono(String.class);
 

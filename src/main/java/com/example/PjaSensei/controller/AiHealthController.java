@@ -10,7 +10,6 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequestMapping("/api/health")
 @AllArgsConstructor
-
 public class AiHealthController {
     private final AiHealthService aiHealthService;
 
