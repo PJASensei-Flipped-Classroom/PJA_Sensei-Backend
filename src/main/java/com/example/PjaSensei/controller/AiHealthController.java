@@ -8,13 +8,28 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/api/health")
+@RequestMapping("/api")
 @AllArgsConstructor
 public class AiHealthController {
     private final AiHealthService aiHealthService;
 
-    @GetMapping
+    @GetMapping("/health")
     public Mono<String> getAiHealth() {
         return aiHealthService.getAiHealth();
+    }
+
+    @GetMapping("/healthz")
+    public Mono<String> getAiHealthz() {
+        return aiHealthService.getAiHealthz();
+    }
+
+    @GetMapping("/metrics")
+    public Mono<String> getAiMetrics() {
+        return aiHealthService.getAiMetrics();
+    }
+
+    @GetMapping("/metrics/prometheus")
+    public Mono<String> getAiMetricsPrometheus() {
+        return aiHealthService.getAiPrometheus();
     }
 }
