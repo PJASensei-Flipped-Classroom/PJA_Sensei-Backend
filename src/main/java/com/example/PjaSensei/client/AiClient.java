@@ -3,36 +3,39 @@ package com.example.PjaSensei.client;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
+import org.springframework.web.client.RestClient;
 import tools.jackson.databind.JsonNode;
 
 @Component
 @AllArgsConstructor
 public class AiClient {
-    private final WebClient webClient;
+    private final RestClient restClient;
 
-    public Mono<ResponseEntity<JsonNode>> getHealth() {
-        return webClient.get()
+    public ResponseEntity<JsonNode> getHealth() {
+        return restClient.get()
                 .uri("/health")
-                .exchangeToMono(response -> response.toEntity(JsonNode.class));
+                .retrieve()
+                .toEntity(JsonNode.class);
     }
 
-    public Mono<ResponseEntity<JsonNode>> getHealthz() {
-        return webClient.get()
+    public ResponseEntity<JsonNode> getHealthz() {
+        return restClient.get()
                 .uri("/healthz")
-                .exchangeToMono(response -> response.toEntity(JsonNode.class));
+                .retrieve()
+                .toEntity(JsonNode.class);
     }
 
-    public Mono<ResponseEntity<JsonNode>> getMetrics() {
-        return webClient.get()
+    public ResponseEntity<JsonNode> getMetrics() {
+        return restClient.get()
                 .uri("/metrics")
-                .exchangeToMono(response -> response.toEntity(JsonNode.class));
+                .retrieve()
+                .toEntity(JsonNode.class);
     }
 
-    public Mono<ResponseEntity<String>> getAiPrometheus() {
-        return webClient.get()
+    public ResponseEntity<String> getAiPrometheus() {
+        return restClient.get()
                 .uri("/metrics/prometheus")
-                .exchangeToMono(response -> response.toEntity(String.class));
+                .retrieve()
+                .toEntity(String.class);
     }
 }

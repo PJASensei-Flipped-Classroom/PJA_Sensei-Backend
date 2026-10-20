@@ -1,5 +1,8 @@
 spring:
   application:
     name: PjaSensei
+  threads:
+    virtual:
+      enabled: true
 ai-properties:
     ai-url: "http://localhost:8000"

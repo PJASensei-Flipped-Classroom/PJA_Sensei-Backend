@@ -4,7 +4,6 @@ import com.example.PjaSensei.client.AiClient;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
 import tools.jackson.databind.JsonNode;
 
 @Service
@@ -12,19 +11,19 @@ import tools.jackson.databind.JsonNode;
 public class AiHealthService {
     private final AiClient aiClient;
 
-    public Mono<ResponseEntity<JsonNode>> getAiHealth() {
+    public ResponseEntity<JsonNode> getAiHealth() {
         return aiClient.getHealth();
     }
 
-    public Mono<ResponseEntity<JsonNode>> getAiHealthz() {
+    public ResponseEntity<JsonNode> getAiHealthz() {
         return aiClient.getHealthz();
     }
 
-    public Mono<ResponseEntity<JsonNode>> getAiMetrics() {
+    public ResponseEntity<JsonNode> getAiMetrics() {
         return aiClient.getMetrics();
     }
 
-    public Mono<ResponseEntity<String>> getAiPrometheus() {
+    public ResponseEntity<String> getAiPrometheus() {
         return aiClient.getAiPrometheus();
     }
 }
