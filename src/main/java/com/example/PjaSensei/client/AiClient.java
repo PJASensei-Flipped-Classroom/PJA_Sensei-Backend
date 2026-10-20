@@ -15,28 +15,24 @@ public class AiClient {
     public Mono<ResponseEntity<JsonNode>> getHealth() {
         return webClient.get()
                 .uri("/health")
-                .retrieve()
-                .toEntity(JsonNode.class);
+                .exchangeToMono(response -> response.toEntity(JsonNode.class));
     }
 
-    public Mono<String> getHealthz() {
+    public Mono<ResponseEntity<JsonNode>> getHealthz() {
         return webClient.get()
                 .uri("/healthz")
-                .retrieve()
-                .bodyToMono(String.class);
+                .exchangeToMono(response -> response.toEntity(JsonNode.class));
     }
 
-    public Mono<String> getMetrics() {
+    public Mono<ResponseEntity<JsonNode>> getMetrics() {
         return webClient.get()
                 .uri("/metrics")
-                .retrieve()
-                .bodyToMono(String.class);
+                .exchangeToMono(response -> response.toEntity(JsonNode.class));
     }
 
-    public Mono<String> getAiPrometheus() {
+    public Mono<ResponseEntity<String>> getAiPrometheus() {
         return webClient.get()
                 .uri("/metrics/prometheus")
-                .retrieve()
-                .bodyToMono(String.class);
+                .exchangeToMono(response -> response.toEntity(String.class));
     }
 }

@@ -13,22 +13,18 @@ public class AiHealthService {
     private final AiClient aiClient;
 
     public Mono<ResponseEntity<JsonNode>> getAiHealth() {
-        return aiClient.getHealth()
-                .onErrorResume(e -> Mono.<ResponseEntity<JsonNode>>just(ResponseEntity.status(500).body())); //TODO: zmienic
+        return aiClient.getHealth();
     }
 
-    public Mono<String> getAiHealthz() {
-        return aiClient.getHealthz()
-                .onErrorResume(e -> Mono.just("AI service is down: "));
+    public Mono<ResponseEntity<JsonNode>> getAiHealthz() {
+        return aiClient.getHealthz();
     }
 
-    public Mono<String> getAiMetrics() {
-        return aiClient.getMetrics()
-                .onErrorResume(e -> Mono.just("AI service metrics are not available: "));
+    public Mono<ResponseEntity<JsonNode>> getAiMetrics() {
+        return aiClient.getMetrics();
     }
 
-    public Mono<String> getAiPrometheus() {
-        return aiClient.getAiPrometheus()
-                .onErrorResume(e -> Mono.just("Prometheus metrics are not available: "));
+    public Mono<ResponseEntity<String>> getAiPrometheus() {
+        return aiClient.getAiPrometheus();
     }
 }
