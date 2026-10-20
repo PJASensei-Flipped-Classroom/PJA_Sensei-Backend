@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tools.jackson.databind.JsonNode;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/ai")
 @AllArgsConstructor
 public class AiHealthController {
     private final AiHealthService aiHealthService;
