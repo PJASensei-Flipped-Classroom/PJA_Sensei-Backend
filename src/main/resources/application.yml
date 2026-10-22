@@ -6,3 +6,8 @@ spring:
       enabled: true
 ai-properties:
     ai-url: "http://localhost:8000"
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health

@@ -11,31 +11,4 @@ import tools.jackson.databind.JsonNode;
 public class AiClient {
     private final RestClient restClient;
 
-    public ResponseEntity<JsonNode> getHealth() {
-        return restClient.get()
-                .uri("/health")
-                .retrieve()
-                .toEntity(JsonNode.class);
-    }
-
-    public ResponseEntity<JsonNode> getHealthz() {
-        return restClient.get()
-                .uri("/healthz")
-                .retrieve()
-                .toEntity(JsonNode.class);
-    }
-
-    public ResponseEntity<JsonNode> getMetrics() {
-        return restClient.get()
-                .uri("/metrics")
-                .retrieve()
-                .toEntity(JsonNode.class);
-    }
-
-    public ResponseEntity<String> getAiPrometheus() {
-        return restClient.get()
-                .uri("/metrics/prometheus")
-                .retrieve()
-                .toEntity(String.class);
-    }
 }
