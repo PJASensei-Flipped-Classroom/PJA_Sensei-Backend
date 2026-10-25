@@ -5,7 +5,7 @@ spring:
     virtual:
       enabled: true
 ai-properties:
-    ai-url: "http://localhost:8000"
+    ai-url: "http://127.0.0.1:8000"
 management:
   endpoints:
     web:

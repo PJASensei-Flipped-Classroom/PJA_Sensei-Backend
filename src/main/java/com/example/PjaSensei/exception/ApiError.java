@@ -1,4 +1,6 @@
 package com.example.PjaSensei.exception;
 
-public class ApiError {
+import java.time.Instant;
+
+public record ApiError(Instant timestamp, int status, String message) {
 }
