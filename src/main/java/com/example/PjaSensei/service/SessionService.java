@@ -15,9 +15,11 @@ import org.springframework.stereotype.Service;
 public class SessionService {
     private final AiClient aiClient;
     private final ConversationSessionRepository sessionRepository;
+    private final CurrentUserService currentUserService;
 
     public StartConversationResponse create(CreateSessionRequest request) {
-        validate(request);
+        String userSub = currentUserService.getUserSub();
+        validate(userSub, request);
         StartConversationResponse response = aiClient.startConversation(
                 new AiStartConversationRequest(request.problem_description(), request.config()));
         if (response == null || response.conversation_id() == null
@@ -25,7 +27,7 @@ public class SessionService {
             throw new IllegalStateException("AI service returned an invalid conversation response");
         }
         sessionRepository.save(new ConversationSession(
-                request.userSub(), request.repoId(), request.taskId(), response));
+                userSub, request.repoId(), request.taskId(), response));
         return response;
     }
 
@@ -33,9 +35,12 @@ public class SessionService {
         sessionRepository.findRequired(conversationId, userSub, repoId);
     }
 
-    private void validate(CreateSessionRequest request) {
-        if (request == null || isBlank(request.userSub())) {
-            throw new ChatValidationException("userSub is required");
+    private void validate(String userSub, CreateSessionRequest request) {
+        if (isBlank(userSub)) {
+            throw new ChatValidationException("Authenticated user sub is required");
+        }
+        if (request == null) {
+            throw new ChatValidationException("Request body is required");
         }
         if (isBlank(request.repoId())) {
             throw new ChatValidationException("repoId is required");

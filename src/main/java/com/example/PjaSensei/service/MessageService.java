@@ -13,17 +13,22 @@ import org.springframework.stereotype.Service;
 public class MessageService {
     private final SessionService sessionService;
     private final AiClient aiClient;
+    private final CurrentUserService currentUserService;
 
     public SendMessageResponse send(String conversationId, SendMessageRequest request) {
-        validate(request);
-        sessionService.requireOwnedBy(conversationId, request.userSub(), request.repoId());
+        String userSub = currentUserService.getUserSub();
+        validate(userSub, request);
+        sessionService.requireOwnedBy(conversationId, userSub, request.repoId());
         return aiClient.sendMessage(conversationId, new AiSendMessageRequest(
                 request.question(), request.code_context(), request.client_message_id()));
     }
 
-    private void validate(SendMessageRequest request) {
-        if (request == null || isBlank(request.userSub())) {
-            throw new ChatValidationException("userSub is required");
+    private void validate(String userSub, SendMessageRequest request) {
+        if (isBlank(userSub)) {
+            throw new ChatValidationException("Authenticated user sub is required");
+        }
+        if (request == null) {
+            throw new ChatValidationException("Request body is required");
         }
         if (isBlank(request.repoId())) {
             throw new ChatValidationException("repoId is required");

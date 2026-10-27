@@ -7,6 +7,7 @@ import com.example.PjaSensei.dto.chat.StartConversationResponse;
 import com.example.PjaSensei.service.ChatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,12 +17,14 @@ public class ChatController {
     private final ChatService chatService;
 
     @PostMapping
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<StartConversationResponse> startConversation(
             @RequestBody CreateSessionRequest request) {
         return ResponseEntity.ok(chatService.startSession(request));
     }
 
     @PostMapping("/{conversationId}/messages")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<SendMessageResponse> sendMessage(
             @PathVariable String conversationId,
             @RequestBody SendMessageRequest request) {

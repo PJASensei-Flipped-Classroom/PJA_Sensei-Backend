@@ -1,7 +1,6 @@
 package com.example.PjaSensei.dto.chat;
 
 public record SendMessageRequest(
-        String userSub,
         String repoId,
         String question,
         CodeContext code_context,
