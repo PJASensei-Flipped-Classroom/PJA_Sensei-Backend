@@ -4,6 +4,11 @@ spring:
   threads:
     virtual:
       enabled: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${COGNITO_ISSUER_URI}
 ai-properties:
     ai-url: "http://127.0.0.1:8000"
 management:
